@@ -1,19 +1,24 @@
 import os
-
 os.system("clear")
 
 # Task 1
-
+# dictionary = {"key": "value"}
 settings = {"title": "My original title"}
 
 
 def change_site_title(new_title):
     """Change the title of the site."""
-    settings['title'] = new_title
+
+    # dictionary["key"] = Value/new_Value
+    # 1) can overwrite the former Value with a new Value
+    # 2) or can create a new {"key": "value"} pair
+    settings["title"] = new_title
 
 
 # Test cases
-print("------- Task 1 -------")
+# ---------------------------------
+print("\n\n------- Task 1 -------")
+
 print("\n# settings before change:")
 print(settings)
 
@@ -26,6 +31,7 @@ print(settings)
 
 
 # Task 2
+# ---------------------------------
 print("\n\n------- Task 2 -------")
 
 default_settings = {
@@ -33,45 +39,96 @@ default_settings = {
 }
 
 
+
 def get_title(settings=default_settings):
+    #            ^            ^
+    #      keyword argument   |
+    #                    default value
+    # default value: here it is the default_settings variable declared above
+    # can also be a fixed value e.g. (settings="A boring titel")
     """Get the title of the site."""
+    # return settings["title"] -> e.g. "My origanal title"
     return settings['title']
 
 
 # Test cases
-# print(get_title(settings))
-# print(get_title())
-# change_site_title("A new fancy title")
-# print(get_title(settings))
-# print(get_title())
+
+print("\n# get_title(settings): -> settings was changed in task 1")
+
+# by passing a dictionary to this function, nothing is changed, 
+# just read the "title" of this dict
+print(get_title(settings))
+
+# no argument passed, default value is used in function
+print("\n# get_title(): -> 'My original title'")
+print(get_title())
+
+# now the "title" settings (dict) is changed to the passed string
+print("\n# change_site_title('A new fancy title'): -> update settings (dict)")
+change_site_title("A new fancy title")
+
+
+print("\n# get_title(settings): -> udated title in settings (dict)")
+print(get_title(settings))
+
+print("\n# get_title(): -> default value from default_settings (dict)")
+print(get_title())
 
 
 # Task 3
 
 print("\n\n------- Task 3 -------")
+# a new key-value pair is added 
+# to settings (dict) and to default_settings (dict)
+# the value of key "pages" is an empty list
 settings['pages'] = []
 default_settings['pages'] = []
 
 
 def get_pages(settings=default_settings):
     """Return the pages stored in the settings."""
+    # return value of key "pages" of every dictonary passed to the function
+    # if no dictionary is passed, default value is default_settings (dict)
     return settings['pages']
 
 
 def add_page(page, settings=default_settings):
     """Add a page to the settings."""
+    # by default settings["pages"] is [] -> empty
+    # but it could also be already filled with a value
+    # by doing something like this: settings["pages"] = page
+    # the old value would be overwritten
+    
+    # .append() ensures, that the new value doesn't overwrite 
+    # an already existing value
     settings['pages'].append(page)
 
 
 # Test cases
-# home = {"title": "Home", "path": "/"}
-# add_page(home)
-# print(get_pages())
-# print(get_pages(settings))
-# about = {"title": "About", "path": "/about/"}
-# add_page(about, settings)
-# print(get_pages())
-# print(get_pages(settings))
+# a new value -> new dictionary for key "pages" 
+home = {"title": "Home", "path": "/"}
+
+
+print("\n# add_page(home): -> home (dict) as argument to add to default value default_settings (dict)")
+add_page(home)
+
+print("\n# get_pages(): -> get updated key 'pages' of settings (dict)")
+print(get_pages())
+
+print("\n# get_pages(settings): -> get key 'pages' of settings (dict)")
+print(get_pages(settings))
+
+# new value -> new dictionary for key "pages" 
+about = {"title": "About", "path": "/about/"}
+print("\n# add_page(about, settings): -> home as new value for settings (dict)")
+add_page(about, settings)
+
+
+print("\n# get_pages(): -> get 'pages' of default_settings (dict)")
+print(get_pages())
+
+print("\n# get_pages(settings): -> get 'pages' of settings (dict)")
+print(get_pages(settings))
 
 
 # Task 4
